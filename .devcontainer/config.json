@@ -45,8 +45,8 @@
           "xPaddingObfsMode": true,
           "xPaddingMethod": "tokenish",
           "xPaddingPlacement": "queryInHeader",
-          "xPaddingKey": "Parsashonam",
-          "xPaddingHeader": "Parsashonam"
+          "xPaddingKey": "Bertyy",
+          "xPaddingHeader": "Bertyy"
         }
       },
       "sniffing": {
