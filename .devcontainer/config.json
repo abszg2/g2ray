@@ -1,6 +1,6 @@
 {
   "log": {
-    "loglevel": "warning",
+    "loglevel": "debug",
     "access": "none",
     "error": "/tmp/xray-error.log"
   },
@@ -37,16 +37,16 @@
         "network": "xhttp",
         "security": "none",
         "xhttpSettings": {
-          "mode": "packet-up",
+          "mode": "auto",
           "path": "/",
-          "scMaxEachPostBytes": 1000000,
-          "scMaxBufferedPosts": 10,
-          "xPaddingBytes": "10-50",
+          "maxUploadSize": 1000000,
+          "maxConcurrentUploads": 10,
+          "xPaddingBytes": "100-1000",
           "xPaddingObfsMode": true,
           "xPaddingMethod": "tokenish",
           "xPaddingPlacement": "queryInHeader",
-          "xPaddingKey": "Bertyy",
-          "xPaddingHeader": "Bertyy"
+          "xPaddingKey": "_dc",
+          "xPaddingHeader": "X-Cache"
         }
       },
       "sniffing": {
@@ -60,20 +60,38 @@
     {
       "tag": "direct",
       "protocol": "freedom",
-      "settings": { "domainStrategy": "UseIPv4" }
+      "settings": {
+        "domainStrategy": "UseIPv4"
+      }
     },
     {
       "tag": "block",
       "protocol": "blackhole",
-      "settings": { "response": { "type": "http" } }
+      "settings": {
+        "response": {
+          "type": "http"
+        }
+      }
     }
   ],
   "routing": {
     "domainStrategy": "IPIfNonMatch",
     "rules": [
-      { "type": "field", "ip": ["geoip:private"], "outboundTag": "block" },
-      { "type": "field", "protocol": ["bittorrent"], "outboundTag": "block" },
-      { "type": "field", "domain": ["geosite:category-ads-all"], "outboundTag": "block" }
+      {
+        "type": "field",
+        "ip": ["geoip:private"],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "protocol": ["bittorrent"],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": ["geosite:category-ads-all"],
+        "outboundTag": "block"
+      }
     ]
   },
   "policy": {
