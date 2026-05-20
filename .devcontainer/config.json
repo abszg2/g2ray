@@ -8,9 +8,7 @@
     "servers": [
       {
         "address": "https://1.1.1.1/dns-query",
-        "domains": [
-          "geosite:geolocation-!cn"
-        ],
+        "domains": ["geosite:geolocation-!cn"],
         "queryStrategy": "UseIP"
       },
       "8.8.8.8",
@@ -27,10 +25,10 @@
       "settings": {
         "clients": [
           {
-            "id": "44755681-3866-4c7c-b210-0c4183a9b7c2",
+            "id": "e0c043dc-a7d4-4fac-bc4d-2ec56bc2a616",
             "flow": "",
             "level": 0,
-            "email": "user@swift-wave-41ea8c"
+            "email": "user@dark-node-351a6a"
           }
         ],
         "decryption": "none"
@@ -41,17 +39,19 @@
         "xhttpSettings": {
           "mode": "packet-up",
           "path": "/",
-          "maxUploadSize": 1000000,
-          "maxConcurrentUploads": 10
+          "scMaxEachPostBytes": 1000000,
+          "scMaxBufferedPosts": 10,
+          "xPaddingBytes": "10-50",
+          "xPaddingObfsMode": true,
+          "xPaddingMethod": "tokenish",
+          "xPaddingPlacement": "queryInHeader",
+          "xPaddingKey": "Parsashonam",
+          "xPaddingHeader": "Parsashonam"
         }
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": [
-          "http",
-          "tls",
-          "quic"
-        ],
+        "destOverride": ["http", "tls", "quic"],
         "routeOnly": false
       }
     }
@@ -60,44 +60,20 @@
     {
       "tag": "direct",
       "protocol": "freedom",
-      "settings": {
-        "domainStrategy": "UseIPv4"
-      }
+      "settings": { "domainStrategy": "UseIPv4" }
     },
     {
       "tag": "block",
       "protocol": "blackhole",
-      "settings": {
-        "response": {
-          "type": "http"
-        }
-      }
+      "settings": { "response": { "type": "http" } }
     }
   ],
   "routing": {
     "domainStrategy": "IPIfNonMatch",
     "rules": [
-      {
-        "type": "field",
-        "ip": [
-          "geoip:private"
-        ],
-        "outboundTag": "block"
-      },
-      {
-        "type": "field",
-        "protocol": [
-          "bittorrent"
-        ],
-        "outboundTag": "block"
-      },
-      {
-        "type": "field",
-        "domain": [
-          "geosite:category-ads-all"
-        ],
-        "outboundTag": "block"
-      }
+      { "type": "field", "ip": ["geoip:private"], "outboundTag": "block" },
+      { "type": "field", "protocol": ["bittorrent"], "outboundTag": "block" },
+      { "type": "field", "domain": ["geosite:category-ads-all"], "outboundTag": "block" }
     ]
   },
   "policy": {
